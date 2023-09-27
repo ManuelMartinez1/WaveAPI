@@ -17,10 +17,12 @@ usuariosCtrl.getUsuarios= async(req,res)=>{
 
 usuariosCtrl.createUsuario = async(req, res) => {
     const newUsuario= new usuario(req.body);
-    await newUsuario.save();
-    res.send({message:'Usuario creado:))))'});
-    //console.log(req.body);
-
+    try{
+        const savedUsuario = await newUsuario.save();
+        res.status(201).send(savedUsuario);
+    }catch (err){
+        res.status(500).send({message: 'Error creating user', error: err});
+    }
 }
 
 usuariosCtrl.getUsuario=async(req,res)=>{
