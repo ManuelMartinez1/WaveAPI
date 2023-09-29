@@ -9,6 +9,8 @@ const router=Router();
 
     router.get('/usuarios/alias/', usuariosCtrl.getUsuarioAlias);
 
+    router.get('/usuarios/getIdByEmail/:email', usuariosCtrl.getIdByEmail);
+
 
     //RUTAS USUARIO
     router.put('/update/usuario/:id', usuariosCtrl.updateUsuario)

@@ -10,6 +10,23 @@ usuariosCtrl.getUsuarioAlias = async(req,res)=>{
     res.json(usuarios);
 }
 
+usuariosCtrl.getIdByEmail = async (req, res) => {
+    const { email } = req.params;
+    try {
+      const Usuario = await usuario.findOne({ correo: email });
+      if (!Usuario) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+  
+      const userId = Usuario._id; // Supongo que el campo _id contiene el ID de MongoDB
+  
+      return res.status(200).json({ userId });
+    } catch (error) {
+      console.error('Error al buscar usuario por email:', error);
+      return res.status(500).json({ message: 'Error interno del servidor' });
+    }
+  };
+
 usuariosCtrl.getUsuarios= async(req,res)=>{
     const usuarios= await usuario.find()
     res.json(usuarios)
